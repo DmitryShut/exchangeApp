@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ExchangeApp.Entity
 {
-    class OperationType
+    public enum OperationType
     {
-        private String Name;
+        Purchase,
+        Selling
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExchangeApp.Entity
 {
-    class Money
+    public class Money
     {
         private BigInteger Amount { get; set; }
         private Currency Currency { get; set; }

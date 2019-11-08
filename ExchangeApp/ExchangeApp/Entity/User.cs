@@ -8,6 +8,12 @@ namespace ExchangeApp.Entity
 {
     public class User
     {
+        public User(string name, string surname)
+        {
+            Name = name;
+            Surname = surname;
+        }
+
         private string Name { get; set; }
 
         private string Surname { get; set; }

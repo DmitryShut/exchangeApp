@@ -36,6 +36,10 @@
     <StartupObject>ExchangeApp.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
+      <HintPath>..\packages\Ninject.4.0.0-beta-0134\lib\net45\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -52,30 +56,40 @@
   <ItemGroup>
     <Compile Include="Entity\Money.cs" />
     <Compile Include="Entity\OperationType.cs" />
-    <Compile Include="Entity\Rate.cs" />
     <Compile Include="Entity\Currency.cs" />
     <Compile Include="Entity\Operation.cs" />
     <Compile Include="Entity\User.cs" />
-    <Compile Include="Forms\AdminForm.cs">
+    <Compile Include="Forms\AdminView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AdminForm.Designer.cs">
-      <DependentUpon>AdminForm.cs</DependentUpon>
+    <Compile Include="Forms\AdminView.Designer.cs">
+      <DependentUpon>AdminView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UserForm.cs">
+    <Compile Include="Forms\CashierView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\UserForm.Designer.cs">
-      <DependentUpon>UserForm.cs</DependentUpon>
+    <Compile Include="Forms\CashierView.Designer.cs">
+      <DependentUpon>CashierView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\IUserService.cs" />
+    <Compile Include="Model\ICurrencyService.cs" />
+    <Compile Include="Model\IExchangeService.cs" />
+    <Compile Include="Model\Implementations\CashierService.cs" />
+    <Compile Include="Model\Implementations\CurrencyService.cs" />
+    <Compile Include="Model\Implementations\ExchangeService.cs" />
+    <Compile Include="Model\IOperationService.cs" />
+    <Compile Include="Model\IReceiptService.cs" />
+    <Compile Include="Model\ICashierService.cs" />
+    <Compile Include="Presenter\ICashierPresenter.cs" />
+    <Compile Include="Presenter\Implementations\CashierPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\AdminForm.resx">
-      <DependentUpon>AdminForm.cs</DependentUpon>
+    <Compile Include="View\IAdminView.cs" />
+    <Compile Include="View\ICashierView.cs" />
+    <EmbeddedResource Include="Forms\AdminView.resx">
+      <DependentUpon>AdminView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserForm.resx">
-      <DependentUpon>UserForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CashierView.resx">
+      <DependentUpon>CashierView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -86,6 +100,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,7 +117,6 @@
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Presenter\" />
-    <Folder Include="View" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

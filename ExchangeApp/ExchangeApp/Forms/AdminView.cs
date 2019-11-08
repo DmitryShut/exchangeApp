@@ -7,20 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ExchangeApp.View;
+using Ninject;
 
 namespace ExchangeApp
 {
-    public partial class AdminForm : Form
+    public partial class AdminView : Form, IAdminView
     {
-        public AdminForm()
+        public AdminView()
         {
             InitializeComponent();
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            UserForm userForm = new UserForm();
-            userForm.Show();
         }
     }
 }

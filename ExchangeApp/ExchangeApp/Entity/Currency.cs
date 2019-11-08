@@ -7,8 +7,21 @@ using System.Numerics;
 
 namespace ExchangeApp.Entity
 {
-    class Currency
+    public class Currency
     {
-        private string Name { get; set; }
+        public string CurrencyName { get; set; }
+        private BigInteger PurchaseRate { get; set; }
+        private BigInteger SellingRate { get; set; }
+        private BigInteger PurchaseLimit { get; set; }
+        private BigInteger SellingLimit { get; set; }
+
+        public Currency(string currencyName, BigInteger purchaseRate, BigInteger sellingRate, BigInteger purchaseLimit, BigInteger sellingLimit)
+        {
+            CurrencyName = currencyName;
+            PurchaseRate = purchaseRate;
+            SellingRate = sellingRate;
+            PurchaseLimit = purchaseLimit;
+            SellingLimit = sellingLimit;
+        }
     }
 }
