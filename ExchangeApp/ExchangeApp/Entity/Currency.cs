@@ -9,11 +9,12 @@ namespace ExchangeApp.Entity
 {
     public class Currency
     {
+        public BigInteger Id { get; set; }
         public string CurrencyName { get; set; }
-        private BigInteger PurchaseRate { get; set; }
-        private BigInteger SellingRate { get; set; }
-        private BigInteger PurchaseLimit { get; set; }
-        private BigInteger SellingLimit { get; set; }
+        public BigInteger PurchaseRate { get; set; }
+        public BigInteger SellingRate { get; set; }
+        public BigInteger PurchaseLimit { get; set; }
+        public BigInteger SellingLimit { get; set; }
 
         public Currency(string currencyName, BigInteger purchaseRate, BigInteger sellingRate, BigInteger purchaseLimit, BigInteger sellingLimit)
         {

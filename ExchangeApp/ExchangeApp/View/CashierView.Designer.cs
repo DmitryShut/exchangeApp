@@ -38,17 +38,17 @@
             this.surnameBox = new System.Windows.Forms.TextBox();
             this.nameBox = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button6 = new System.Windows.Forms.Button();
+            this.targetCurrency = new System.Windows.Forms.ComboBox();
+            this.userCurrency = new System.Windows.Forms.ComboBox();
+            this.sellButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.userSurnameBox = new System.Windows.Forms.TextBox();
+            this.userNameBox = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.userCurrency = new System.Windows.Forms.ComboBox();
-            this.targetCurrency = new System.Windows.Forms.ComboBox();
+            this.buyButton = new System.Windows.Forms.Button();
+            this.targetCurrencyBox = new System.Windows.Forms.TextBox();
+            this.userCurrencyBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -180,15 +180,15 @@
             // 
             this.tabPage2.Controls.Add(this.targetCurrency);
             this.tabPage2.Controls.Add(this.userCurrency);
-            this.tabPage2.Controls.Add(this.button6);
+            this.tabPage2.Controls.Add(this.sellButton);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.textBox7);
-            this.tabPage2.Controls.Add(this.textBox8);
+            this.tabPage2.Controls.Add(this.userSurnameBox);
+            this.tabPage2.Controls.Add(this.userNameBox);
             this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Controls.Add(this.textBox4);
-            this.tabPage2.Controls.Add(this.textBox3);
+            this.tabPage2.Controls.Add(this.buyButton);
+            this.tabPage2.Controls.Add(this.targetCurrencyBox);
+            this.tabPage2.Controls.Add(this.userCurrencyBox);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -197,19 +197,36 @@
             this.tabPage2.Text = "Покупка валюты";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // targetCurrency
             // 
-            this.button6.Anchor =
+            this.targetCurrency.FormattingEnabled = true;
+            this.targetCurrency.Location = new System.Drawing.Point(500, 284);
+            this.targetCurrency.Name = "targetCurrency";
+            this.targetCurrency.Size = new System.Drawing.Size(138, 23);
+            this.targetCurrency.TabIndex = 18;
+            // 
+            // userCurrency
+            // 
+            this.userCurrency.FormattingEnabled = true;
+            this.userCurrency.Location = new System.Drawing.Point(500, 209);
+            this.userCurrency.Name = "userCurrency";
+            this.userCurrency.Size = new System.Drawing.Size(138, 23);
+            this.userCurrency.TabIndex = 17;
+            this.userCurrency.SelectedIndexChanged += new System.EventHandler(this.userCurrency_SelectedIndexChanged_1);
+            // 
+            // sellButton
+            // 
+            this.sellButton.Anchor =
                 ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
                                                          System.Windows.Forms.AnchorStyles.Bottom) |
                                                         System.Windows.Forms.AnchorStyles.Left) |
                                                        System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(664, 537);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(124, 28);
-            this.button6.TabIndex = 16;
-            this.button6.Text = "Продать";
-            this.button6.UseVisualStyleBackColor = true;
+            this.sellButton.Location = new System.Drawing.Point(664, 537);
+            this.sellButton.Name = "sellButton";
+            this.sellButton.Size = new System.Drawing.Size(124, 28);
+            this.sellButton.TabIndex = 16;
+            this.sellButton.Text = "Продать";
+            this.sellButton.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -239,29 +256,29 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "Имя клиента";
             // 
-            // textBox7
+            // userSurnameBox
             // 
-            this.textBox7.Anchor =
+            this.userSurnameBox.Anchor =
                 ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
                                                          System.Windows.Forms.AnchorStyles.Bottom) |
                                                         System.Windows.Forms.AnchorStyles.Left) |
                                                        System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox7.Location = new System.Drawing.Point(612, 407);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(238, 23);
-            this.textBox7.TabIndex = 8;
+            this.userSurnameBox.Location = new System.Drawing.Point(612, 407);
+            this.userSurnameBox.Name = "userSurnameBox";
+            this.userSurnameBox.Size = new System.Drawing.Size(238, 23);
+            this.userSurnameBox.TabIndex = 8;
             // 
-            // textBox8
+            // userNameBox
             // 
-            this.textBox8.Anchor =
+            this.userNameBox.Anchor =
                 ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
                                                          System.Windows.Forms.AnchorStyles.Bottom) |
                                                         System.Windows.Forms.AnchorStyles.Left) |
                                                        System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox8.Location = new System.Drawing.Point(611, 339);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(241, 23);
-            this.textBox8.TabIndex = 7;
+            this.userNameBox.Location = new System.Drawing.Point(611, 339);
+            this.userNameBox.Name = "userNameBox";
+            this.userNameBox.Size = new System.Drawing.Size(241, 23);
+            this.userNameBox.TabIndex = 7;
             // 
             // button3
             // 
@@ -277,59 +294,44 @@
             this.button3.Text = "Получить чек";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buyButton
             // 
-            this.button2.Anchor =
+            this.buyButton.Anchor =
                 ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
                                                          System.Windows.Forms.AnchorStyles.Bottom) |
                                                         System.Windows.Forms.AnchorStyles.Left) |
                                                        System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(664, 479);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(124, 28);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Купить";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buyButton.Location = new System.Drawing.Point(664, 479);
+            this.buyButton.Name = "buyButton";
+            this.buyButton.Size = new System.Drawing.Size(124, 28);
+            this.buyButton.TabIndex = 5;
+            this.buyButton.Text = "Купить";
+            this.buyButton.UseVisualStyleBackColor = true;
+            this.buyButton.Click += new System.EventHandler(this.button2_Click);
             // 
-            // textBox4
+            // targetCurrencyBox
             // 
-            this.textBox4.Anchor =
+            this.targetCurrencyBox.Anchor =
                 ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
                                                          System.Windows.Forms.AnchorStyles.Bottom) |
                                                         System.Windows.Forms.AnchorStyles.Left) |
                                                        System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(644, 284);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(173, 23);
-            this.textBox4.TabIndex = 3;
+            this.targetCurrencyBox.Location = new System.Drawing.Point(644, 284);
+            this.targetCurrencyBox.Name = "targetCurrencyBox";
+            this.targetCurrencyBox.Size = new System.Drawing.Size(173, 23);
+            this.targetCurrencyBox.TabIndex = 3;
             // 
-            // textBox3
+            // userCurrencyBox
             // 
-            this.textBox3.Anchor =
+            this.userCurrencyBox.Anchor =
                 ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
                                                          System.Windows.Forms.AnchorStyles.Bottom) |
                                                         System.Windows.Forms.AnchorStyles.Left) |
                                                        System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(644, 209);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(174, 23);
-            this.textBox3.TabIndex = 2;
-            // 
-            // userCurrency
-            // 
-            this.userCurrency.FormattingEnabled = true;
-            this.userCurrency.Location = new System.Drawing.Point(500, 209);
-            this.userCurrency.Name = "userCurrency";
-            this.userCurrency.Size = new System.Drawing.Size(138, 23);
-            this.userCurrency.TabIndex = 17;
-            // 
-            // targetCurrency
-            // 
-            this.targetCurrency.FormattingEnabled = true;
-            this.targetCurrency.Location = new System.Drawing.Point(500, 284);
-            this.targetCurrency.Name = "targetCurrency";
-            this.targetCurrency.Size = new System.Drawing.Size(138, 23);
-            this.targetCurrency.TabIndex = 18;
+            this.userCurrencyBox.Location = new System.Drawing.Point(644, 209);
+            this.userCurrencyBox.Name = "userCurrencyBox";
+            this.userCurrencyBox.Size = new System.Drawing.Size(174, 23);
+            this.userCurrencyBox.TabIndex = 2;
             // 
             // CashierView
             // 
@@ -357,20 +359,20 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.TextBox surnameBox;
         private System.Windows.Forms.ComboBox userCurrency;
         private System.Windows.Forms.ComboBox targetCurrency;
+        private System.Windows.Forms.TextBox targetCurrencyBox;
+        private System.Windows.Forms.Button sellButton;
+        private System.Windows.Forms.TextBox userSurnameBox;
+        private System.Windows.Forms.TextBox userNameBox;
+        private System.Windows.Forms.Button buyButton;
+        private System.Windows.Forms.TextBox userCurrencyBox;
     }
 }
 

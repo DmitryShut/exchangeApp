@@ -22,14 +22,35 @@ namespace ExchangeApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            kernel.Bind<ICashierService>().ToConstant(new CashierService()).InSingletonScope();
-            kernel.Bind<ICashierView>().ToConstant(new CashierView()).InSingletonScope();
-            kernel.Bind<IAdminView>().ToConstant(new AdminView()).InSingletonScope();
-            kernel.Bind<ICurrencyService>().ToConstant(new CurrencyService()).InSingletonScope();
-            kernel.Bind<ApplicationContext>().ToConstant(FormManager.Current).InSingletonScope();
-            kernel.Bind<ICashierPresenter>().ToConstant(new CashierPresenter(kernel.Get<ICashierService>(),
-                kernel.Get<ICashierView>(), kernel.Get<ICurrencyService>())).InSingletonScope();
-            Application.Run(kernel.Get<ApplicationContext>());
+            kernel.Bind<ICashierService>()
+                .ToConstant(new CashierService())
+                .InSingletonScope();
+            kernel.Bind<ICashierView>()
+                .ToConstant(new CashierView())
+                .InSingletonScope();
+            kernel.Bind<IAdminView>()
+                .ToConstant(new AdminView())
+                .InSingletonScope();
+            kernel.Bind<ICurrencyService>()
+                .ToConstant(new CurrencyService())
+                .InSingletonScope();
+            kernel.Bind<IOperationService>()
+                .ToConstant(new OperationService())
+                .InSingletonScope();
+            kernel.Bind<ICashierPresenter>()
+                .ToConstant(new CashierPresenter(
+                    kernel.Get<ICashierService>(),
+                    kernel.Get<ICashierView>(),
+                    kernel.Get<ICurrencyService>(),
+                    kernel.Get<IOperationService>()))
+                .InSingletonScope();
+            kernel.Bind<IAdminPresenter>()
+                .ToConstant(new AdminPresenter(
+                    kernel.Get<IAdminView>(),
+                    kernel.Get<ICurrencyService>(),
+                    kernel.Get<IOperationService>()))
+                .InSingletonScope();
+            Application.Run(FormManager.Current);
         }
 
         class FormManager : ApplicationContext

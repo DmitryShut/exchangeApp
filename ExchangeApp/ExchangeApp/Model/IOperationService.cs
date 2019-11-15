@@ -7,5 +7,12 @@ namespace ExchangeApp.Model
     {
         void SetOperation(Operation operation);
         List<Operation> GetOperations();
+
+        event Delegates.UpdateOperations UpdateOperations;
+    }
+
+    public static class Delegates
+    {
+        public delegate void UpdateOperations();
     }
 }
