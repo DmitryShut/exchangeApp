@@ -1,17 +1,17 @@
 ﻿using ExchangeApp.Entity;
 using ExchangeApp.Model;
+using ExchangeApp.Model.Implementations;
 using ExchangeApp.View;
-using Delegates = ExchangeApp.Model.Delegates;
 
 namespace ExchangeApp.Presenter.Implementations
 {
-    public class AdminPresenter: IAdminPresenter
+    public class AdminPresenter
     {
-        private readonly IAdminView _adminView;
-        private readonly ICurrencyService _currencyService;
-        private readonly IOperationService _operationService;
+        private readonly AdminView _adminView;
+        private readonly CurrencyService _currencyService;
+        private readonly OperationService _operationService;
 
-        public AdminPresenter(IAdminView adminView, ICurrencyService currencyService, IOperationService operationService)
+        public AdminPresenter(AdminView adminView, CurrencyService currencyService, OperationService operationService)
         {
             _adminView = adminView;
             _currencyService = currencyService;

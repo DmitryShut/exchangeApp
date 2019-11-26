@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ExchangeApp.Entity;
 using ExchangeApp.Model;
 using ExchangeApp.Model.Implementations;
 using ExchangeApp.Presenter;
 using ExchangeApp.Presenter.Implementations;
+using ExchangeApp.Repository;
 using ExchangeApp.View;
 using Ninject;
 
@@ -22,33 +25,35 @@ namespace ExchangeApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            kernel.Bind<ICashierService>()
-                .ToConstant(new CashierService())
-                .InSingletonScope();
-            kernel.Bind<ICashierView>()
+            kernel.Bind<CashierView>()
                 .ToConstant(new CashierView())
                 .InSingletonScope();
-            kernel.Bind<IAdminView>()
+            kernel.Bind<AdminView>()
                 .ToConstant(new AdminView())
                 .InSingletonScope();
-            kernel.Bind<ICurrencyService>()
-                .ToConstant(new CurrencyService())
+            kernel.Bind<IRepository<Operation, long>>()
+                .ToConstant(new Repository<Operation, long>())
                 .InSingletonScope();
-            kernel.Bind<IOperationService>()
-                .ToConstant(new OperationService())
+            kernel.Bind<IRepository<Currency, string>>()
+                .ToConstant(new Repository<Currency,string>())
                 .InSingletonScope();
-            kernel.Bind<ICashierPresenter>()
+            kernel.Bind<CurrencyService>()
+                .ToConstant(new CurrencyService(kernel.Get<IRepository<Currency, string>>()))
+                .InSingletonScope();
+            kernel.Bind<OperationService>()
+                .ToConstant(new OperationService(kernel.Get<IRepository<Operation, long>>()))
+                .InSingletonScope();
+            kernel.Bind<CashierPresenter>()
                 .ToConstant(new CashierPresenter(
-                    kernel.Get<ICashierService>(),
-                    kernel.Get<ICashierView>(),
-                    kernel.Get<ICurrencyService>(),
-                    kernel.Get<IOperationService>()))
+                    kernel.Get<CashierView>(),
+                    kernel.Get<CurrencyService>(),
+                    kernel.Get<OperationService>()))
                 .InSingletonScope();
-            kernel.Bind<IAdminPresenter>()
+            kernel.Bind<AdminPresenter>()
                 .ToConstant(new AdminPresenter(
-                    kernel.Get<IAdminView>(),
-                    kernel.Get<ICurrencyService>(),
-                    kernel.Get<IOperationService>()))
+                    kernel.Get<AdminView>(),
+                    kernel.Get<CurrencyService>(),
+                    kernel.Get<OperationService>()))
                 .InSingletonScope();
             Application.Run(FormManager.Current);
         }
@@ -68,10 +73,10 @@ namespace ExchangeApp
 
             public FormManager()
             {
-                var f1 = (Form) kernel.Get<ICashierView>();
+                var f1 = (Form) kernel.Get<CashierView>();
                 f1.FormClosed += onFormClosed;
                 f1.Show();
-                var f2 = (Form) kernel.Get<IAdminView>();
+                var f2 = (Form) kernel.Get<AdminView>();
                 f2.FormClosed += onFormClosed;
                 f2.Show();
             }

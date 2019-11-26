@@ -9,7 +9,6 @@ namespace ExchangeApp.Entity
 {
     public class Currency
     {
-        public BigInteger Id { get; set; }
         public string CurrencyName { get; set; }
         public BigInteger PurchaseRate { get; set; }
         public BigInteger SellingRate { get; set; }
@@ -23,6 +22,11 @@ namespace ExchangeApp.Entity
             SellingRate = sellingRate;
             PurchaseLimit = purchaseLimit;
             SellingLimit = sellingLimit;
+        }
+
+        public override string ToString()
+        {
+            return CurrencyName;
         }
     }
 }

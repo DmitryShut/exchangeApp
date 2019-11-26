@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Numerics;
 using System.Windows.Forms;
 using ExchangeApp.Entity;
@@ -7,10 +8,11 @@ using ExchangeApp.View;
 
 namespace ExchangeApp
 {
-    public partial class CashierView : Form, ICashierView
+    public partial class CashierView : Form
     {
-        public List<Currency> targetCurrencies = new List<Currency>();
-        public List<Currency> userCurrencies = new List<Currency>();
+        public BindingList<Currency> targetCurrencies = new BindingList<Currency>();
+        public BindingList<Currency> userCurrencies = new BindingList<Currency>();
+        public User cashier = new User();
 
         public CashierView()
         {
@@ -28,28 +30,23 @@ namespace ExchangeApp
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
-        public User GetCashier()
-        {
-            throw new NotImplementedException();
-        }
-
-        public event Delegates.SetCashier SetCashier;
-        public event Delegates.GetCurrencies GetCurrencies;
-        public event Delegates.BuyCurrency BuyCurrency;
-        public event Delegates.SellCurrency SellCurrency;
+        public event ViewDelegates.GetCurrencies GetCurrencies;
+        public event ViewDelegates.PerformOperation PerformOperation;
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SetCashier?.Invoke(new User(nameBox.Text, surnameBox.Text));
+            cashier.Name = nameBox.Text;
+            cashier.Surname = surnameBox.Text;
         }
 
         public void UpdateCurrencies(List<Currency> Currencies)
         {
-            userCurrencies.AddRange(Currencies);
-            targetCurrencies.AddRange(Currencies);
+            userCurrencies.Clear();
+            Currencies.ForEach(currency => userCurrencies.Add(currency));
+            targetCurrencies.Clear();
+            Currencies.ForEach(currency => targetCurrencies.Add(currency));
         }
 
         public void SetTargetCurrency(BigInteger targetCurrency)
@@ -63,12 +60,21 @@ namespace ExchangeApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            BuyCurrency?.Invoke((Currency)userCurrency.SelectedItem, (Currency)targetCurrency.SelectedItem, BigInteger.Parse(userCurrencyBox.Text), new User(userNameBox.Text, userSurnameBox.Text));
+            PerformOperation?.Invoke((Currency) userCurrency.SelectedItem, (Currency) targetCurrency.SelectedItem,
+                BigInteger.Parse(userCurrencyBox.Text), new User(userNameBox.Text, userSurnameBox.Text),
+                OperationType.Purchase, cashier);
         }
 
 
         private void userCurrency_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+        }
+
+        private void sellButton_Click(object sender, EventArgs e)
+        {
+            PerformOperation?.Invoke((Currency) userCurrency.SelectedItem, (Currency) targetCurrency.SelectedItem,
+                BigInteger.Parse(userCurrencyBox.Text), new User(userNameBox.Text, userSurnameBox.Text),
+                OperationType.Selling, cashier);
         }
     }
 }

@@ -54,26 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\Money.cs" />
     <Compile Include="Entity\OperationType.cs" />
     <Compile Include="Entity\Currency.cs" />
     <Compile Include="Entity\Operation.cs" />
     <Compile Include="Entity\User.cs" />
-    <Compile Include="Model\ICurrencyService.cs" />
-    <Compile Include="Model\IExchangeService.cs" />
-    <Compile Include="Model\Implementations\CashierService.cs" />
-    <Compile Include="Model\Implementations\CurrencyService.cs" />
-    <Compile Include="Model\Implementations\ExchangeService.cs" />
-    <Compile Include="Model\Implementations\OperationService.cs" />
-    <Compile Include="Model\IOperationService.cs" />
-    <Compile Include="Model\IReceiptService.cs" />
-    <Compile Include="Model\ICashierService.cs" />
-    <Compile Include="Presenter\IAdminPresenter.cs" />
-    <Compile Include="Presenter\ICashierPresenter.cs" />
-    <Compile Include="Presenter\Implementations\AdminPresenter.cs" />
-    <Compile Include="Presenter\Implementations\CashierPresenter.cs" />
+    <Compile Include="Presenter\AdminPresenter.cs" />
+    <Compile Include="Presenter\CashierPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Service\CurrencyService.cs" />
+    <Compile Include="Service\OperationService.cs" />
+    <Compile Include="Service\ServiceDelegates.cs" />
     <Compile Include="View\AdminView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,8 +79,7 @@
     <Compile Include="View\CashierView.Designer.cs">
       <DependentUpon>CashierView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\IAdminView.cs" />
-    <Compile Include="View\ICashierView.cs" />
+    <Compile Include="View\ViewDelegates.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -118,7 +110,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Presenter\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

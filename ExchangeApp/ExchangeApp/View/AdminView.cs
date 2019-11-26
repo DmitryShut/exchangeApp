@@ -14,7 +14,7 @@ using Ninject;
 
 namespace ExchangeApp
 {
-    public partial class AdminView : Form, IAdminView
+    public partial class AdminView : Form
     {
         public BindingList<Currency> currencies = new BindingList<Currency>();
         public BindingList<Operation> Operations = new BindingList<Operation>();
@@ -34,8 +34,8 @@ namespace ExchangeApp
             operationsView.DataSource = Operations;
         }
 
-        public event Delegates.GetCurrencies GetCurrencies;
-        public event Delegates.AddCurrency AddCurrency;
+        public event ViewDelegates.GetCurrencies GetCurrencies;
+        public event ViewDelegates.AddCurrency AddCurrency;
 
         public void UpdateCurrencies(List<Currency> Currencies)
         {
