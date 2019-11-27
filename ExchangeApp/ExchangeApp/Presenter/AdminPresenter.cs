@@ -20,6 +20,12 @@ namespace ExchangeApp.Presenter.Implementations
             _adminView.GetCurrencies += GetCurrencies;
             _adminView.AddCurrency += AddCurrency;
             _operationService.UpdateOperations += UpdateOperations;
+            _adminView.FilterOperations += FilterOperations;
+        }
+
+        private void FilterOperations(string filter)
+        {
+            _adminView.UpdateOperations(_operationService.FilterOperations(filter));
         }
 
         private void UpdateOperations()

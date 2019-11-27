@@ -11,5 +11,7 @@ namespace ExchangeApp.View
 
         public delegate void PerformOperation(Currency userCurrency, Currency targetCurrency, BigInteger userAmount,
             User user, OperationType operationType, User cashier);
+
+        public delegate void FilterOperations(string filter);
     }
 }

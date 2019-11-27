@@ -37,6 +37,8 @@ namespace ExchangeApp
         public event ViewDelegates.GetCurrencies GetCurrencies;
         public event ViewDelegates.AddCurrency AddCurrency;
 
+        public event ViewDelegates.FilterOperations FilterOperations;
+
         public void UpdateCurrencies(List<Currency> Currencies)
         {
             currencies.Clear();
@@ -64,11 +66,32 @@ namespace ExchangeApp
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            AddCurrency?.Invoke(new Currency(nameBox.Text,
-                BigInteger.Parse(purchaseRateBox.Text),
-                BigInteger.Parse(sellRateBox.Text),
-                BigInteger.Parse(purchaseRateBox.Text),
-                BigInteger.Parse(sellLimitBox.Text)));
+            try
+            {
+                AddCurrency?.Invoke(new Currency(nameBox.Text,
+                    BigInteger.Parse(purchaseRateBox.Text),
+                    BigInteger.Parse(sellRateBox.Text),
+                    BigInteger.Parse(purchaseRateBox.Text),
+                    BigInteger.Parse(sellLimitBox.Text)));
+            }
+            catch (Exception exception)
+            {
+                showMessageBox("Wrong format");
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void filter_Click(object sender, EventArgs e)
+        {
+            FilterOperations?.Invoke(filterTextBox.Text);
+        }
+        
+        public void showMessageBox(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK);
         }
     }
 }

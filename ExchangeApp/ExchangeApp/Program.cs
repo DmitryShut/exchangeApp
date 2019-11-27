@@ -31,8 +31,8 @@ namespace ExchangeApp
             kernel.Bind<AdminView>()
                 .ToConstant(new AdminView())
                 .InSingletonScope();
-            kernel.Bind<IRepository<Operation, long>>()
-                .ToConstant(new Repository<Operation, long>())
+            kernel.Bind<IRepository<Operation, DateTime>>()
+                .ToConstant(new Repository<Operation, DateTime>())
                 .InSingletonScope();
             kernel.Bind<IRepository<Currency, string>>()
                 .ToConstant(new Repository<Currency,string>())
@@ -41,7 +41,7 @@ namespace ExchangeApp
                 .ToConstant(new CurrencyService(kernel.Get<IRepository<Currency, string>>()))
                 .InSingletonScope();
             kernel.Bind<OperationService>()
-                .ToConstant(new OperationService(kernel.Get<IRepository<Operation, long>>()))
+                .ToConstant(new OperationService(kernel.Get<IRepository<Operation, DateTime>>()))
                 .InSingletonScope();
             kernel.Bind<CashierPresenter>()
                 .ToConstant(new CashierPresenter(

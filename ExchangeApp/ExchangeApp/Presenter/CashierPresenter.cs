@@ -31,22 +31,21 @@ namespace ExchangeApp.Presenter.Implementations
             _cashierView.UpdateCurrencies(_currencyService.GetCurrencies());
         }
 
-        public void PerformOperation(Currency userCurrency, Currency targetCurrency, BigInteger userAmount, User user, OperationType operationType, User cashier)
+        public void PerformOperation(Currency userCurrency, Currency targetCurrency, BigInteger userAmount, User user,
+            OperationType operationType, User cashier)
         {
-            if (operationType.Equals(OperationType.Purchase))
+            BigInteger targetAmount = new BigInteger(0);
+            try
             {
-                BigInteger targetAmount = userAmount * targetCurrency.PurchaseRate / userCurrency.SellingRate;
-                _cashierView.SetTargetCurrency(targetAmount);
-                _operationService.SetOperation(new Operation(DateTimeOffset.Now.ToUnixTimeMilliseconds(), user, OperationType.Purchase, userCurrency,
-                    userAmount, targetCurrency, targetAmount, cashier));
+                targetAmount = _operationService.PerformOperation(userCurrency, targetCurrency, userAmount,
+                    user, operationType, cashier);
             }
-            else
+            catch (ArithmeticException e)
             {
-                BigInteger targetAmount = userAmount * targetCurrency.SellingRate / userCurrency.PurchaseRate;
-                _cashierView.SetTargetCurrency(targetAmount);
-                _operationService.SetOperation(new Operation(DateTimeOffset.Now.ToUnixTimeMilliseconds(), user, OperationType.Selling, userCurrency,
-                    userAmount, targetCurrency, targetAmount, cashier));
+                _cashierView.showMessageBox("Вы превысили лимит");
             }
+
+            _cashierView.SetTargetCurrency(targetAmount);
         }
     }
 }

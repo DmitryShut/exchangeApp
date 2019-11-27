@@ -38,6 +38,8 @@
             this.nameBox = new System.Windows.Forms.TextBox();
             this.currenciesView = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.filter = new System.Windows.Forms.Button();
+            this.filterTextBox = new System.Windows.Forms.TextBox();
             this.operationsView = new System.Windows.Forms.DataGridView();
             tabControl1 = new System.Windows.Forms.TabControl();
             tabControl1.SuspendLayout();
@@ -46,9 +48,6 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.operationsView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // tabControl1
-            // 
             tabControl1.Controls.Add(this.tabPage1);
             tabControl1.Controls.Add(this.tabPage3);
             tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -57,9 +56,6 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new System.Drawing.Size(933, 519);
             tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
             this.tabPage1.Controls.Add(this.addButton);
             this.tabPage1.Controls.Add(this.purchaseLimitBox);
             this.tabPage1.Controls.Add(this.sellLimitBox);
@@ -74,9 +70,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Валюты";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // addButton
-            // 
             this.addButton.Location = new System.Drawing.Point(369, 453);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(80, 21);
@@ -84,44 +77,26 @@
             this.addButton.Text = "Добавить";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
-            // purchaseLimitBox
-            // 
             this.purchaseLimitBox.Location = new System.Drawing.Point(231, 453);
             this.purchaseLimitBox.Name = "purchaseLimitBox";
             this.purchaseLimitBox.Size = new System.Drawing.Size(63, 23);
             this.purchaseLimitBox.TabIndex = 5;
-            // 
-            // sellLimitBox
-            // 
             this.sellLimitBox.Location = new System.Drawing.Point(300, 453);
             this.sellLimitBox.Name = "sellLimitBox";
             this.sellLimitBox.Size = new System.Drawing.Size(63, 23);
             this.sellLimitBox.TabIndex = 4;
-            // 
-            // sellRateBox
-            // 
             this.sellRateBox.Location = new System.Drawing.Point(162, 453);
             this.sellRateBox.Name = "sellRateBox";
             this.sellRateBox.Size = new System.Drawing.Size(63, 23);
             this.sellRateBox.TabIndex = 3;
-            // 
-            // purchaseRateBox
-            // 
             this.purchaseRateBox.Location = new System.Drawing.Point(93, 453);
             this.purchaseRateBox.Name = "purchaseRateBox";
             this.purchaseRateBox.Size = new System.Drawing.Size(63, 23);
             this.purchaseRateBox.TabIndex = 2;
-            // 
-            // nameBox
-            // 
             this.nameBox.Location = new System.Drawing.Point(24, 453);
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(63, 23);
             this.nameBox.TabIndex = 1;
-            // 
-            // currenciesView
-            // 
             this.currenciesView.ColumnHeadersHeightSizeMode =
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.currenciesView.Location = new System.Drawing.Point(3, 3);
@@ -130,9 +105,8 @@
             this.currenciesView.TabIndex = 0;
             this.currenciesView.CellContentClick +=
                 new System.Windows.Forms.DataGridViewCellEventHandler(this.currenciesView_CellContentClick);
-            // 
-            // tabPage3
-            // 
+            this.tabPage3.Controls.Add(this.filter);
+            this.tabPage3.Controls.Add(this.filterTextBox);
             this.tabPage3.Controls.Add(this.operationsView);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
@@ -141,22 +115,27 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "История операций";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // operationsView
-            // 
+            this.filter.Location = new System.Drawing.Point(863, 2);
+            this.filter.Name = "filter";
+            this.filter.Size = new System.Drawing.Size(59, 23);
+            this.filter.TabIndex = 2;
+            this.filter.Text = "button1";
+            this.filter.UseVisualStyleBackColor = true;
+            this.filter.Click += new System.EventHandler(this.filter_Click);
+            this.filterTextBox.Location = new System.Drawing.Point(8, 2);
+            this.filterTextBox.Name = "filterTextBox";
+            this.filterTextBox.Size = new System.Drawing.Size(849, 23);
+            this.filterTextBox.TabIndex = 1;
+            this.filterTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.operationsView.AllowUserToAddRows = false;
             this.operationsView.AllowUserToDeleteRows = false;
             this.operationsView.ColumnHeadersHeightSizeMode =
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.operationsView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.operationsView.Location = new System.Drawing.Point(3, 3);
+            this.operationsView.Location = new System.Drawing.Point(-3, 27);
             this.operationsView.Name = "operationsView";
             this.operationsView.ReadOnly = true;
-            this.operationsView.Size = new System.Drawing.Size(919, 485);
+            this.operationsView.Size = new System.Drawing.Size(924, 459);
             this.operationsView.TabIndex = 0;
-            // 
-            // AdminView
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 519);
@@ -169,6 +148,7 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.currenciesView)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.operationsView)).EndInit();
             this.ResumeLayout(false);
         }
@@ -185,5 +165,7 @@
         private System.Windows.Forms.TextBox sellLimitBox;
         private System.Windows.Forms.TextBox purchaseLimitBox;
         private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.TextBox filterTextBox;
+        private System.Windows.Forms.Button filter;
     }
 }

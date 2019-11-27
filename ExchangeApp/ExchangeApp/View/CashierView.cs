@@ -60,9 +60,16 @@ namespace ExchangeApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            PerformOperation?.Invoke((Currency) userCurrency.SelectedItem, (Currency) targetCurrency.SelectedItem,
-                BigInteger.Parse(userCurrencyBox.Text), new User(userNameBox.Text, userSurnameBox.Text),
-                OperationType.Purchase, cashier);
+            try
+            {
+                PerformOperation?.Invoke((Currency) userCurrency.SelectedItem, (Currency) targetCurrency.SelectedItem,
+                    BigInteger.Parse(userCurrencyBox.Text), new User(userNameBox.Text, userSurnameBox.Text),
+                    OperationType.Purchase, cashier);
+            }
+            catch (Exception exception)
+            {
+                showMessageBox("Wrong format");
+            }
         }
 
 
@@ -75,6 +82,11 @@ namespace ExchangeApp
             PerformOperation?.Invoke((Currency) userCurrency.SelectedItem, (Currency) targetCurrency.SelectedItem,
                 BigInteger.Parse(userCurrencyBox.Text), new User(userNameBox.Text, userSurnameBox.Text),
                 OperationType.Selling, cashier);
+        }
+
+        public void showMessageBox(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK);
         }
     }
 }
