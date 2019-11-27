@@ -30,23 +30,29 @@ namespace ExchangeApp.Model.Implementations
                 ? operations.Select(x => x.TargetAmount).Aggregate((x, y) => x + y)
                 : new BigInteger(0);
             BigInteger targetAmount;
-            if (operationType.Equals(OperationType.Purchase))
+            if (targetCurrency.Equals(userCurrency))
             {
-                targetAmount = userAmount * targetCurrency.PurchaseRate / userCurrency.SellingRate;
-                if ((userTotalAmount + targetAmount) > targetCurrency.PurchaseLimit)
-                {
-                    throw new ArithmeticException();
-                }
+                targetAmount = userAmount;
             }
             else
             {
-                targetAmount = userAmount * targetCurrency.SellingRate / userCurrency.PurchaseRate;
-                if ((userTotalAmount + targetAmount) > targetCurrency.SellingRate)
+                if (operationType.Equals(OperationType.Purchase))
                 {
-                    throw new ArithmeticException();
+                    targetAmount = userAmount * targetCurrency.PurchaseRate / userCurrency.SellingRate;
+                    if ((userTotalAmount + targetAmount) > targetCurrency.PurchaseLimit)
+                    {
+                        throw new ArithmeticException();
+                    }
+                }
+                else
+                {
+                    targetAmount = userAmount * targetCurrency.SellingRate / userCurrency.PurchaseRate;
+                    if ((userTotalAmount + targetAmount) > targetCurrency.SellingRate)
+                    {
+                        throw new ArithmeticException();
+                    }
                 }
             }
-
             operationRepository.Create(new Operation(DateTime.Now, user,
                 operationType, userCurrency,
                 userAmount, targetCurrency, targetAmount, cashier), DateTime.Now);
