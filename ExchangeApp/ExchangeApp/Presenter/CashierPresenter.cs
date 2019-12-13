@@ -8,14 +8,14 @@ using ExchangeApp.View;
 
 namespace ExchangeApp.Presenter.Implementations
 {
-    public class CashierPresenter
+    public class CashierPresenter: ICashierPresenter
     {
-        private readonly CashierView _cashierView;
-        private readonly CurrencyService _currencyService;
-        private readonly OperationService _operationService;
+        private readonly ICashierView _cashierView;
+        private readonly ICurrencyService _currencyService;
+        private readonly IOperationService _operationService;
 
-        public CashierPresenter(CashierView cashierView, CurrencyService currencyService,
-            OperationService operationService)
+        public CashierPresenter(ICashierView cashierView, ICurrencyService currencyService,
+            IOperationService operationService)
         {
             _cashierView = cashierView;
             _currencyService = currencyService;

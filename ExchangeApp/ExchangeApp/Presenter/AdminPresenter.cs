@@ -1,21 +1,22 @@
-﻿using ExchangeApp.Entity;
+﻿using System;
+using ExchangeApp.Entity;
 using ExchangeApp.Model;
 using ExchangeApp.Model.Implementations;
 using ExchangeApp.View;
 
 namespace ExchangeApp.Presenter.Implementations
 {
-    public class AdminPresenter
+    public class AdminPresenter: IAdminPresenter
     {
-        private readonly AdminView _adminView;
-        private readonly CurrencyService _currencyService;
-        private readonly OperationService _operationService;
+        private readonly IAdminView _adminView;
+        private readonly ICurrencyService _currencyService;
+        private readonly IOperationService _operationService;
 
-        public AdminPresenter(AdminView adminView, CurrencyService currencyService, OperationService operationService)
+        public AdminPresenter(IAdminView adminView, ICurrencyService currencyService, IOperationService operationService)
         {
             _adminView = adminView;
             _currencyService = currencyService;
-            _operationService = operationService;
+            _operationService = operationService ?? throw new ArgumentNullException(nameof(operationService));
 
             _adminView.GetCurrencies += GetCurrencies;
             _adminView.AddCurrency += AddCurrency;
@@ -23,12 +24,12 @@ namespace ExchangeApp.Presenter.Implementations
             _adminView.FilterOperations += FilterOperations;
         }
 
-        private void FilterOperations(string filter)
+        public void FilterOperations(string filter)
         {
             _adminView.UpdateOperations(_operationService.FilterOperations(filter));
         }
 
-        private void UpdateOperations()
+        public void UpdateOperations()
         {
             _adminView.UpdateOperations(_operationService.GetOperations());
         }

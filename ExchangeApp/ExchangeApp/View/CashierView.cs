@@ -9,7 +9,7 @@ using ExchangeApp.View;
 
 namespace ExchangeApp
 {
-    public partial class CashierView : Form
+    public partial class CashierView : Form, ICashierView
     {
         public BindingList<Currency> targetCurrencies = new BindingList<Currency>();
         public BindingList<Currency> userCurrencies = new BindingList<Currency>();
@@ -21,7 +21,7 @@ namespace ExchangeApp
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        public void SetupForm(object sender, EventArgs e)
         {
             GetCurrencies?.Invoke();
             targetCurrency.DataSource = targetCurrencies;
@@ -30,14 +30,10 @@ namespace ExchangeApp
             userCurrency.DisplayMember = "CurrencyName";
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
         public event ViewDelegates.GetCurrencies GetCurrencies;
         public event ViewDelegates.PerformOperation PerformOperation;
 
-        private void button1_Click(object sender, EventArgs e)
+        public void InputCashier(object sender, EventArgs e)
         {
             cashier.Name = nameBox.Text;
             cashier.Surname = surnameBox.Text;
@@ -56,11 +52,7 @@ namespace ExchangeApp
             targetCurrencyBox.Text = targetCurrency.ToString();
         }
 
-        private void userCurrency_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        public void Buy(object sender, EventArgs e)
         {
             try
             {
@@ -71,7 +63,7 @@ namespace ExchangeApp
 
                 PerformOperation?.Invoke((Currency) userCurrency.SelectedItem, (Currency) targetCurrency.SelectedItem,
                     BigInteger.Parse(userCurrencyBox.Text), new User(userNameBox.Text, userSurnameBox.Text),
-                    OperationType.Purchase, cashier);
+                    OperationType.Purchase, new User(nameBox.Text, surnameBox.Text));
                 lastOperationType = OperationType.Purchase;
             }
             catch (Exception exception)
@@ -80,12 +72,7 @@ namespace ExchangeApp
             }
         }
 
-
-        private void userCurrency_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-        }
-
-        private void sellButton_Click(object sender, EventArgs e)
+        public void Sell(object sender, EventArgs e)
         {
             try
             {
@@ -96,7 +83,7 @@ namespace ExchangeApp
 
                 PerformOperation?.Invoke((Currency) userCurrency.SelectedItem, (Currency) targetCurrency.SelectedItem,
                     BigInteger.Parse(userCurrencyBox.Text), new User(userNameBox.Text, userSurnameBox.Text),
-                    OperationType.Selling, cashier);
+                    OperationType.Selling, new User(nameBox.Text, surnameBox.Text));
                 lastOperationType = OperationType.Selling;
             }
             catch (Exception exception)
@@ -110,7 +97,7 @@ namespace ExchangeApp
             MessageBox.Show(message, "Error", MessageBoxButtons.OK);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        public void GetBill(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == DialogResult.OK)

@@ -14,7 +14,7 @@ using Ninject;
 
 namespace ExchangeApp
 {
-    public partial class AdminView : Form
+    public partial class AdminView : Form, IAdminView
     {
         public BindingList<Currency> currencies = new BindingList<Currency>();
         public BindingList<Operation> Operations = new BindingList<Operation>();
@@ -24,12 +24,12 @@ namespace ExchangeApp
             InitializeComponent();
         }
 
-        private void AdminForm_Load(object sender, EventArgs e)
+        public void SetUp(object sender, EventArgs e)
         {
             GetCurrencies?.Invoke();
             currenciesView.DataSource = typeof(List<Currency>);
             currenciesView.DataSource = currencies;
-            currenciesView.CellValueChanged += currenciesView_CellValueChanged;
+            currenciesView.CellValueChanged += ChangeCurrency;
             operationsView.DataSource = typeof(List<Operation>);
             operationsView.DataSource = Operations;
         }
@@ -55,16 +55,22 @@ namespace ExchangeApp
             operationsView.Refresh();
         }
 
-        private void currenciesView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void currenciesView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        public void ChangeCurrency(object sender, DataGridViewCellEventArgs e)
         {
             AddCurrency?.Invoke((Currency)currenciesView.CurrentRow.DataBoundItem);
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        public void Filter(object sender, EventArgs e)
+        {
+            FilterOperations?.Invoke(filterTextBox.Text);
+        }
+        
+        public void showMessageBox(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK);
+        }
+
+        public void AddNewCurrency(object sender, EventArgs e)
         {
             try
             {
@@ -78,20 +84,6 @@ namespace ExchangeApp
             {
                 showMessageBox("Wrong format");
             }
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void filter_Click(object sender, EventArgs e)
-        {
-            FilterOperations?.Invoke(filterTextBox.Text);
-        }
-        
-        public void showMessageBox(string message)
-        {
-            MessageBox.Show(message, "Error", MessageBoxButtons.OK);
         }
     }
 }

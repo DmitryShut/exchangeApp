@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
 using ExchangeApp.Entity;
 using ExchangeApp.Presenter.Implementations;
 using ExchangeApp.Repository;
 
 namespace ExchangeApp.Model.Implementations
 {
-    public class OperationService
+    public class OperationService : IOperationService
     {
         public IRepository<Operation, DateTime> operationRepository;
 
@@ -53,6 +54,7 @@ namespace ExchangeApp.Model.Implementations
                     }
                 }
             }
+
             operationRepository.Create(new Operation(DateTime.Now, user,
                 operationType, userCurrency,
                 userAmount, targetCurrency, targetAmount, cashier), DateTime.Now);
@@ -65,54 +67,25 @@ namespace ExchangeApp.Model.Implementations
             return operationRepository.FindAll();
         }
 
-        public List<Operation> FilterOperations(string filter)
+        public List<Operation> FilterOperations(string f)
         {
             try
             {
-                string[] filterParams =
-                    filter.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                List<Operation> operations;
-                switch (filterParams[0])
-                {
-                    case "Date":
-                        operations =
-                            operationRepository.FindByCondition(x =>
-                                x.Date >= DateTime.Parse(filterParams[1]) && x.Date <= DateTime.Parse(filterParams[2]));
-                        break;
-                    case "User":
-                        operations = operationRepository.FindByCondition(x =>
-                            x.User.ToString().Equals(filterParams[1]));
-                        break;
-                    case "Cashier":
-                        operations = operationRepository.FindByCondition(x =>
-                            x.Cashier.ToString().Equals(filterParams[1]));
-                        break;
-                    case "Type":
-                        operations = operationRepository.FindByCondition(x =>
-                            x.Type.ToString().Equals(filterParams[1]));
-                        break;
-                    case "UserCurrency":
-                        operations = operationRepository.FindByCondition(x =>
-                            x.UserCurrency.CurrencyName.Equals(filterParams[1]));
-                        break;
-                    case "UserAmount":
-                        operations = operationRepository.FindByCondition(x =>
-                            x.UserAmount.Equals(BigInteger.Parse(filterParams[1])));
-                        break;
-                    case "TargetCurrency":
-                        operations = operationRepository.FindByCondition(x =>
-                            x.TargetCurrency.CurrencyName.Equals(filterParams[1]));
-                        break;
-                    case "TargetAmount":
-                        operations = operationRepository.FindByCondition(x =>
-                            x.TargetAmount.Equals(BigInteger.Parse(filterParams[1])));
-                        break;
-                    default:
-                        operations = operationRepository.FindAll();
-                        break;
-                }
-
-                return operations;
+                string[] filters = f.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                return operationRepository.FindByCondition(operation =>
+                    {
+                        var filterParams = filters[0].Split("=".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        var result = filterParams[1]
+                            .Equals(typeof(Operation).GetProperty(filterParams[0]).GetValue(operation).ToString());
+                        for (int i = 1; i < filters.Length; i++)
+                        {
+                            filterParams = filters[i].Split("=".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                            result = result && filterParams[1]
+                                         .Equals(typeof(Operation).GetProperty(filterParams[0]).GetValue(operation).ToString());
+                        }
+                        return result;
+                    }
+                );
             }
             catch (Exception e)
             {

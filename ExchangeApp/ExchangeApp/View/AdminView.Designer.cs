@@ -76,7 +76,7 @@
             this.addButton.TabIndex = 6;
             this.addButton.Text = "Добавить";
             this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.addButton.Click += new System.EventHandler(this.AddNewCurrency);
             this.purchaseLimitBox.Location = new System.Drawing.Point(231, 453);
             this.purchaseLimitBox.Name = "purchaseLimitBox";
             this.purchaseLimitBox.Size = new System.Drawing.Size(63, 23);
@@ -103,8 +103,6 @@
             this.currenciesView.Name = "currenciesView";
             this.currenciesView.Size = new System.Drawing.Size(919, 445);
             this.currenciesView.TabIndex = 0;
-            this.currenciesView.CellContentClick +=
-                new System.Windows.Forms.DataGridViewCellEventHandler(this.currenciesView_CellContentClick);
             this.tabPage3.Controls.Add(this.filter);
             this.tabPage3.Controls.Add(this.filterTextBox);
             this.tabPage3.Controls.Add(this.operationsView);
@@ -121,12 +119,11 @@
             this.filter.TabIndex = 2;
             this.filter.Text = "button1";
             this.filter.UseVisualStyleBackColor = true;
-            this.filter.Click += new System.EventHandler(this.filter_Click);
+            this.filter.Click += new System.EventHandler(this.Filter);
             this.filterTextBox.Location = new System.Drawing.Point(8, 2);
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.Size = new System.Drawing.Size(849, 23);
             this.filterTextBox.TabIndex = 1;
-            this.filterTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.operationsView.AllowUserToAddRows = false;
             this.operationsView.AllowUserToDeleteRows = false;
             this.operationsView.ColumnHeadersHeightSizeMode =
@@ -142,7 +139,7 @@
             this.Controls.Add(tabControl1);
             this.Name = "AdminView";
             this.Text = "Обменный пункт(Админстратор)";
-            this.Load += new System.EventHandler(this.AdminForm_Load);
+            this.Load += new System.EventHandler(this.SetUp);
             tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

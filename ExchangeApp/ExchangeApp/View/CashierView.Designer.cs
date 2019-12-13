@@ -135,7 +135,6 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 15);
             this.label1.TabIndex = 3;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -150,7 +149,6 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Ввести данные";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // surnameBox
             // 
@@ -212,7 +210,6 @@
             this.userCurrency.Name = "userCurrency";
             this.userCurrency.Size = new System.Drawing.Size(138, 23);
             this.userCurrency.TabIndex = 17;
-            this.userCurrency.SelectedIndexChanged += new System.EventHandler(this.userCurrency_SelectedIndexChanged_1);
             // 
             // sellButton
             // 
@@ -227,7 +224,7 @@
             this.sellButton.TabIndex = 16;
             this.sellButton.Text = "Продать";
             this.sellButton.UseVisualStyleBackColor = true;
-            this.sellButton.Click += new System.EventHandler(this.sellButton_Click);
+            this.sellButton.Click += new System.EventHandler(this.Sell);
             // 
             // label5
             // 
@@ -294,7 +291,7 @@
             this.button3.TabIndex = 6;
             this.button3.Text = "Получить чек";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.GetBill);
             // 
             // buyButton
             // 
@@ -309,7 +306,7 @@
             this.buyButton.TabIndex = 5;
             this.buyButton.Text = "Купить";
             this.buyButton.UseVisualStyleBackColor = true;
-            this.buyButton.Click += new System.EventHandler(this.button2_Click);
+            this.buyButton.Click += new System.EventHandler(this.Buy);
             // 
             // targetCurrencyBox
             // 
@@ -343,7 +340,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "CashierView";
             this.Text = "Обменный пункт(Пользователь)";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.SetupForm);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

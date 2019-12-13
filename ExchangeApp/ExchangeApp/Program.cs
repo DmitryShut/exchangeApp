@@ -25,10 +25,10 @@ namespace ExchangeApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            kernel.Bind<CashierView>()
+            kernel.Bind<ICashierView>()
                 .ToConstant(new CashierView())
                 .InSingletonScope();
-            kernel.Bind<AdminView>()
+            kernel.Bind<IAdminView>()
                 .ToConstant(new AdminView())
                 .InSingletonScope();
             kernel.Bind<IRepository<Operation, DateTime>>()
@@ -37,23 +37,23 @@ namespace ExchangeApp
             kernel.Bind<IRepository<Currency, string>>()
                 .ToConstant(new Repository<Currency,string>())
                 .InSingletonScope();
-            kernel.Bind<CurrencyService>()
+            kernel.Bind<ICurrencyService>()
                 .ToConstant(new CurrencyService(kernel.Get<IRepository<Currency, string>>()))
                 .InSingletonScope();
-            kernel.Bind<OperationService>()
+            kernel.Bind<IOperationService>()
                 .ToConstant(new OperationService(kernel.Get<IRepository<Operation, DateTime>>()))
                 .InSingletonScope();
-            kernel.Bind<CashierPresenter>()
+            kernel.Bind<ICashierPresenter>()
                 .ToConstant(new CashierPresenter(
-                    kernel.Get<CashierView>(),
-                    kernel.Get<CurrencyService>(),
-                    kernel.Get<OperationService>()))
+                    kernel.Get<ICashierView>(),
+                    kernel.Get<ICurrencyService>(),
+                    kernel.Get<IOperationService>()))
                 .InSingletonScope();
-            kernel.Bind<AdminPresenter>()
+            kernel.Bind<IAdminPresenter>()
                 .ToConstant(new AdminPresenter(
-                    kernel.Get<AdminView>(),
-                    kernel.Get<CurrencyService>(),
-                    kernel.Get<OperationService>()))
+                    kernel.Get<IAdminView>(),
+                    kernel.Get<ICurrencyService>(),
+                    kernel.Get<IOperationService>()))
                 .InSingletonScope();
             Application.Run(FormManager.Current);
         }
@@ -73,10 +73,10 @@ namespace ExchangeApp
 
             public FormManager()
             {
-                var f1 = (Form) kernel.Get<CashierView>();
+                var f1 = (Form) kernel.Get<ICashierView>();
                 f1.FormClosed += onFormClosed;
                 f1.Show();
-                var f2 = (Form) kernel.Get<AdminView>();
+                var f2 = (Form) kernel.Get<IAdminView>();
                 f2.FormClosed += onFormClosed;
                 f2.Show();
             }
