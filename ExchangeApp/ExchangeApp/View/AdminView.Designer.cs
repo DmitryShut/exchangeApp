@@ -70,6 +70,9 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Валюты";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.addButton.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.addButton.Location = new System.Drawing.Point(369, 453);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(80, 21);
@@ -77,10 +80,16 @@
             this.addButton.Text = "Добавить";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.AddNewCurrency);
+            this.purchaseLimitBox.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.purchaseLimitBox.Location = new System.Drawing.Point(231, 453);
             this.purchaseLimitBox.Name = "purchaseLimitBox";
             this.purchaseLimitBox.Size = new System.Drawing.Size(63, 23);
             this.purchaseLimitBox.TabIndex = 5;
+            this.sellLimitBox.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.sellLimitBox.Location = new System.Drawing.Point(300, 453);
             this.sellLimitBox.Name = "sellLimitBox";
             this.sellLimitBox.Size = new System.Drawing.Size(63, 23);
@@ -89,38 +98,51 @@
             this.sellRateBox.Name = "sellRateBox";
             this.sellRateBox.Size = new System.Drawing.Size(63, 23);
             this.sellRateBox.TabIndex = 3;
+            this.purchaseRateBox.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.purchaseRateBox.Location = new System.Drawing.Point(93, 453);
             this.purchaseRateBox.Name = "purchaseRateBox";
             this.purchaseRateBox.Size = new System.Drawing.Size(63, 23);
             this.purchaseRateBox.TabIndex = 2;
+            this.nameBox.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.nameBox.Location = new System.Drawing.Point(24, 453);
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(63, 23);
             this.nameBox.TabIndex = 1;
             this.currenciesView.ColumnHeadersHeightSizeMode =
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.currenciesView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currenciesView.Location = new System.Drawing.Point(3, 3);
             this.currenciesView.Name = "currenciesView";
-            this.currenciesView.Size = new System.Drawing.Size(919, 445);
+            this.currenciesView.Size = new System.Drawing.Size(919, 485);
             this.currenciesView.TabIndex = 0;
             this.tabPage3.Controls.Add(this.filter);
             this.tabPage3.Controls.Add(this.filterTextBox);
             this.tabPage3.Controls.Add(this.operationsView);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(925, 491);
+            this.tabPage3.Size = new System.Drawing.Size(925, 493);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "История операций";
             this.tabPage3.UseVisualStyleBackColor = true;
-            this.filter.Location = new System.Drawing.Point(863, 2);
+            this.filter.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
+            this.filter.Location = new System.Drawing.Point(855, 470);
             this.filter.Name = "filter";
             this.filter.Size = new System.Drawing.Size(59, 23);
             this.filter.TabIndex = 2;
-            this.filter.Text = "button1";
+            this.filter.Text = "filter";
             this.filter.UseVisualStyleBackColor = true;
             this.filter.Click += new System.EventHandler(this.Filter);
-            this.filterTextBox.Location = new System.Drawing.Point(8, 2);
+            this.filterTextBox.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
+            this.filterTextBox.Location = new System.Drawing.Point(0, 470);
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.Size = new System.Drawing.Size(849, 23);
             this.filterTextBox.TabIndex = 1;
@@ -128,10 +150,11 @@
             this.operationsView.AllowUserToDeleteRows = false;
             this.operationsView.ColumnHeadersHeightSizeMode =
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.operationsView.Location = new System.Drawing.Point(-3, 27);
+            this.operationsView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.operationsView.Location = new System.Drawing.Point(3, 3);
             this.operationsView.Name = "operationsView";
             this.operationsView.ReadOnly = true;
-            this.operationsView.Size = new System.Drawing.Size(924, 459);
+            this.operationsView.Size = new System.Drawing.Size(919, 487);
             this.operationsView.TabIndex = 0;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

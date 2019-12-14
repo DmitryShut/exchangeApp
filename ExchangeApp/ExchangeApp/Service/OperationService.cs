@@ -94,12 +94,11 @@ namespace ExchangeApp.Model.Implementations
                 return operationRepository.FindByCondition(operation =>
                     {
                         var filterParams = filters[0].Split("=".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                        var result = GetFilterCondition(filterParams[1], typeof(Operation), filterParams[0], operation);
+                        var result = GetFilterCondition(filterParams[1], filterParams[0], operation);
                         for (int i = 1; i < filters.Length; i++)
                         {
                             filterParams = Split("=", filters[i]);
-                            result = result && GetFilterCondition(filterParams[1], typeof(Operation), filterParams[0],
-                                         operation);
+                            result = result && GetFilterCondition(filterParams[1], filterParams[0], operation);
                         }
 
                         return result;
@@ -117,11 +116,9 @@ namespace ExchangeApp.Model.Implementations
             return stringToSplit.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
         }
 
-        private bool GetFilterCondition(string value, Type type, string filterField, Object obj)
+        private bool GetFilterCondition<T>(string value, string filterField, T obj) where T : class
         {
-            return value
-                .Equals(type.GetProperty(filterField).GetValue(obj)
-                    .ToString());
+            return value.Equals(typeof(T).GetProperty(filterField).GetValue(obj).ToString());
         }
 
         public List<Operation> GetOperations(string filter)
