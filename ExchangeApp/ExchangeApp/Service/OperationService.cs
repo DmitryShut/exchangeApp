@@ -18,41 +18,33 @@ namespace ExchangeApp.Model.Implementations
             this.operationRepository = operationRepository;
         }
 
-        public BigInteger PerformOperation(Currency userCurrency, Currency targetCurrency, BigInteger userAmount,
-            User user, OperationType operationType, User cashier)
+        private List<Operation> GetOperationsForLimitCheck(User user, Currency targetCurrency,
+            OperationType operationType)
         {
-            List<Operation> operations = operationRepository.FindByCondition(x =>
+            return operationRepository.FindByCondition(x =>
                 x.Date.Day.Equals(DateTime.Now.Day) &&
                 x.User.ToString().Equals(user.ToString()) &&
                 x.TargetCurrency.CurrencyName.Equals(targetCurrency.CurrencyName) &&
                 x.Type.Equals(operationType)
             );
-            BigInteger userTotalAmount = !operations.Count.Equals(0)
+        }
+
+        private BigInteger GetUserAmountByCurrency(List<Operation> operations)
+        {
+            return !operations.Count.Equals(0)
                 ? operations.Select(x => x.TargetAmount).Aggregate((x, y) => x + y)
                 : new BigInteger(0);
-            BigInteger targetAmount;
-            if (targetCurrency.Equals(userCurrency))
+        }
+
+        public BigInteger PerformOperation(Currency userCurrency, Currency targetCurrency, BigInteger userAmount,
+            User user, OperationType operationType, User cashier)
+        {
+            List<Operation> operations = GetOperationsForLimitCheck(user, targetCurrency, operationType);
+            BigInteger userTotalAmount = GetUserAmountByCurrency(operations);
+            BigInteger targetAmount = GetTargetAmount(targetCurrency, userCurrency, userAmount, operationType);
+            if (LimitCheck(operationType, targetAmount, userTotalAmount, targetCurrency))
             {
-                targetAmount = userAmount;
-            }
-            else
-            {
-                if (operationType.Equals(OperationType.Purchase))
-                {
-                    targetAmount = userAmount * targetCurrency.PurchaseRate / userCurrency.SellingRate;
-                    if ((userTotalAmount + targetAmount) > targetCurrency.PurchaseLimit)
-                    {
-                        throw new ArithmeticException();
-                    }
-                }
-                else
-                {
-                    targetAmount = userAmount * targetCurrency.SellingRate / userCurrency.PurchaseRate;
-                    if ((userTotalAmount + targetAmount) > targetCurrency.SellingRate)
-                    {
-                        throw new ArithmeticException();
-                    }
-                }
+                throw new ArithmeticException();
             }
 
             operationRepository.Create(new Operation(DateTime.Now, user,
@@ -60,6 +52,33 @@ namespace ExchangeApp.Model.Implementations
                 userAmount, targetCurrency, targetAmount, cashier), DateTime.Now);
             UpdateOperations?.Invoke();
             return targetAmount;
+        }
+
+        private BigInteger GetTargetAmount(Currency targetCurrency, Currency userCurrency, BigInteger userAmount,
+            OperationType operationType)
+        {
+            if (targetCurrency.Equals(userCurrency))
+            {
+                return userAmount;
+            }
+
+            if (operationType.Equals(OperationType.Purchase))
+            {
+                return userAmount * targetCurrency.PurchaseRate / userCurrency.SellingRate;
+            }
+
+            return userAmount * targetCurrency.SellingRate / userCurrency.PurchaseRate;
+        }
+
+        private bool LimitCheck(OperationType operationType, BigInteger targetAmount, BigInteger userTotalAmount,
+            Currency targetCurrency)
+        {
+            if (operationType.Equals(OperationType.Purchase))
+            {
+                return (userTotalAmount + targetAmount) > targetCurrency.PurchaseLimit;
+            }
+
+            return (userTotalAmount + targetAmount) > targetCurrency.SellingRate;
         }
 
         public List<Operation> GetOperations()
@@ -71,18 +90,18 @@ namespace ExchangeApp.Model.Implementations
         {
             try
             {
-                string[] filters = f.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                string[] filters = Split(";", f);
                 return operationRepository.FindByCondition(operation =>
                     {
                         var filterParams = filters[0].Split("=".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                        var result = filterParams[1]
-                            .Equals(typeof(Operation).GetProperty(filterParams[0]).GetValue(operation).ToString());
+                        var result = GetFilterCondition(filterParams[1], typeof(Operation), filterParams[0], operation);
                         for (int i = 1; i < filters.Length; i++)
                         {
-                            filterParams = filters[i].Split("=".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                            result = result && filterParams[1]
-                                         .Equals(typeof(Operation).GetProperty(filterParams[0]).GetValue(operation).ToString());
+                            filterParams = Split("=", filters[i]);
+                            result = result && GetFilterCondition(filterParams[1], typeof(Operation), filterParams[0],
+                                         operation);
                         }
+
                         return result;
                     }
                 );
@@ -91,6 +110,18 @@ namespace ExchangeApp.Model.Implementations
             {
                 return operationRepository.FindAll();
             }
+        }
+
+        private string[] Split(string separator, string stringToSplit)
+        {
+            return stringToSplit.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        private bool GetFilterCondition(string value, Type type, string filterField, Object obj)
+        {
+            return value
+                .Equals(type.GetProperty(filterField).GetValue(obj)
+                    .ToString());
         }
 
         public List<Operation> GetOperations(string filter)
