@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute\Id.cs" />
     <Compile Include="Entity\OperationType.cs" />
     <Compile Include="Entity\Currency.cs" />
     <Compile Include="Entity\Operation.cs" />

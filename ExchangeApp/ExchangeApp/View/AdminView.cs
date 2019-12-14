@@ -36,6 +36,7 @@ namespace ExchangeApp
 
         public event ViewDelegates.GetCurrencies GetCurrencies;
         public event ViewDelegates.AddCurrency AddCurrency;
+        public event ViewDelegates.UpdateCurrency UpdateCurrency;
 
         public event ViewDelegates.FilterOperations FilterOperations;
 
@@ -57,7 +58,7 @@ namespace ExchangeApp
 
         public void ChangeCurrency(object sender, DataGridViewCellEventArgs e)
         {
-            AddCurrency?.Invoke((Currency)currenciesView.CurrentRow.DataBoundItem);
+            UpdateCurrency?.Invoke((Currency)currenciesView.CurrentRow.DataBoundItem);
         }
 
         public void Filter(object sender, EventArgs e)

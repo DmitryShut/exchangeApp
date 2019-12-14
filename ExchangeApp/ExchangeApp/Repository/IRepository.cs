@@ -12,5 +12,6 @@ namespace ExchangeApp.Repository
         List<T> FindAll();
         List<T> FindByCondition(Func<T, bool> expression);
         void Create(T entity);
+        void Update(T entity);
     }
 }

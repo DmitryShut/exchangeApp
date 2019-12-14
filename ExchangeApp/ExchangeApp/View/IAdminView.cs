@@ -11,6 +11,7 @@ namespace ExchangeApp.View
 
         event ViewDelegates.GetCurrencies GetCurrencies;
         event ViewDelegates.AddCurrency AddCurrency;
+        event ViewDelegates.UpdateCurrency UpdateCurrency;
 
         event ViewDelegates.FilterOperations FilterOperations;
 

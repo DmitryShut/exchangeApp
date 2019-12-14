@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Numerics;
+using ExchangeApp.Attribute;
 
 namespace ExchangeApp.Entity
 {
     public class Operation
     {
+        [Id()]
         public DateTime Date { get; set; }
         public User User { get; set; }
         public User Cashier { get; set; }

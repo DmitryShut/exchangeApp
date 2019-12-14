@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using ExchangeApp.Attribute;
 
 namespace ExchangeApp.Entity
 {
     public class Currency
     {
+        [Id()]
         public string CurrencyName { get; set; }
         public BigInteger PurchaseRate { get; set; }
         public BigInteger SellingRate { get; set; }

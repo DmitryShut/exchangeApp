@@ -14,6 +14,9 @@ namespace ExchangeApp.Model.Implementations
         public CurrencyService(IRepository<Currency> currencyRepository)
         {
             this.currencyRepository = currencyRepository;
+            this.currencyRepository.Create(new Currency("A", new BigInteger(123), new BigInteger(123), new BigInteger(123), new BigInteger(12)));
+            this.currencyRepository.Create(new Currency("B", new BigInteger(123), new BigInteger(123), new BigInteger(123), new BigInteger(12)));
+            this.currencyRepository.Create(new Currency("C", new BigInteger(123), new BigInteger(123), new BigInteger(123), new BigInteger(12)));
         }
 
         public List<Currency> GetCurrencies()
@@ -26,6 +29,12 @@ namespace ExchangeApp.Model.Implementations
         public void addCurrency(Currency currency)
         {
             currencyRepository.Create(currency);
+            UpdateCurrencies?.Invoke();
+        }
+        
+        public void UpdateCurrency(Currency currency)
+        {
+            currencyRepository.Update(currency);
             UpdateCurrencies?.Invoke();
         }
     }

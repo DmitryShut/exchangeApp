@@ -10,5 +10,6 @@ namespace ExchangeApp.Model.Implementations
         event ServiceDelegates.UpdateCurrencies UpdateCurrencies;
 
         void addCurrency(Currency currency);
+        void UpdateCurrency(Currency currency);
     }
 }
