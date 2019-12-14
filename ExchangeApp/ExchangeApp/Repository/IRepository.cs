@@ -7,12 +7,10 @@ using ExchangeApp.Entity;
 
 namespace ExchangeApp.Repository
 {
-    public interface IRepository<T, U>
+    public interface IRepository<T>
     {
         List<T> FindAll();
         List<T> FindByCondition(Func<T, bool> expression);
-        void Create(T entity, U id);
-        void Update(T entity, U id);
-        void Delete(U id);
+        void Create(T entity);
     }
 }

@@ -11,9 +11,9 @@ namespace ExchangeApp.Model.Implementations
 {
     public class OperationService : IOperationService
     {
-        public IRepository<Operation, DateTime> operationRepository;
+        public IRepository<Operation> operationRepository;
 
-        public OperationService(IRepository<Operation, DateTime> operationRepository)
+        public OperationService(IRepository<Operation> operationRepository)
         {
             this.operationRepository = operationRepository;
         }
@@ -49,7 +49,7 @@ namespace ExchangeApp.Model.Implementations
 
             operationRepository.Create(new Operation(DateTime.Now, user,
                 operationType, userCurrency,
-                userAmount, targetCurrency, targetAmount, cashier), DateTime.Now);
+                userAmount, targetCurrency, targetAmount, cashier));
             UpdateOperations?.Invoke();
             return targetAmount;
         }

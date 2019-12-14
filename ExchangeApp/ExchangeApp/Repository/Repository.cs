@@ -6,33 +6,23 @@ using ExchangeApp.Entity;
 
 namespace ExchangeApp.Repository
 {
-    public class Repository<T, U> : IRepository<T, U>
+    public class Repository<T> : IRepository<T>
     {
-        private Dictionary<U, T> collection = new Dictionary<U, T>();
+        private List<T> collection = new List<T>();
 
         public List<T> FindAll()
         {
-            return new List<T>(collection.Values);
+            return collection;
         }
 
         public List<T> FindByCondition(Func<T, bool> expression)
         {
-            return new List<T>(collection.Values.Where(expression));
+            return new List<T>(collection.Where(expression));
         }
 
-        public void Create(T entity, U id)
+        public void Create(T entity)
         {
-            collection[id] = entity;
-        }
-
-        public void Update(T entity, U id)
-        {
-            collection[id] = entity;
-        }
-
-        public void Delete(U id)
-        {
-            collection.Remove(id);
+            collection.Add(entity);
         }
     }
 }

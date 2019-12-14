@@ -9,9 +9,9 @@ namespace ExchangeApp.Model.Implementations
 {
     public class CurrencyService: ICurrencyService
     {
-        public IRepository<Currency, string> currencyRepository;
+        public IRepository<Currency> currencyRepository;
 
-        public CurrencyService(IRepository<Currency, string> currencyRepository)
+        public CurrencyService(IRepository<Currency> currencyRepository)
         {
             this.currencyRepository = currencyRepository;
         }
@@ -25,7 +25,7 @@ namespace ExchangeApp.Model.Implementations
         
         public void addCurrency(Currency currency)
         {
-            currencyRepository.Create(currency, currency.CurrencyName);
+            currencyRepository.Create(currency);
             UpdateCurrencies?.Invoke();
         }
     }

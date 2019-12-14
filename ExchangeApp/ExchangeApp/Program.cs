@@ -31,17 +31,17 @@ namespace ExchangeApp
             kernel.Bind<IAdminView>()
                 .ToConstant(new AdminView())
                 .InSingletonScope();
-            kernel.Bind<IRepository<Operation, DateTime>>()
-                .ToConstant(new Repository<Operation, DateTime>())
+            kernel.Bind<IRepository<Operation>>()
+                .ToConstant(new Repository<Operation>())
                 .InSingletonScope();
-            kernel.Bind<IRepository<Currency, string>>()
-                .ToConstant(new Repository<Currency,string>())
+            kernel.Bind<IRepository<Currency>>()
+                .ToConstant(new Repository<Currency>())
                 .InSingletonScope();
             kernel.Bind<ICurrencyService>()
-                .ToConstant(new CurrencyService(kernel.Get<IRepository<Currency, string>>()))
+                .ToConstant(new CurrencyService(kernel.Get<IRepository<Currency>>()))
                 .InSingletonScope();
             kernel.Bind<IOperationService>()
-                .ToConstant(new OperationService(kernel.Get<IRepository<Operation, DateTime>>()))
+                .ToConstant(new OperationService(kernel.Get<IRepository<Operation>>()))
                 .InSingletonScope();
             kernel.Bind<ICashierPresenter>()
                 .ToConstant(new CashierPresenter(
